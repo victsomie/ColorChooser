@@ -19,6 +19,11 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 
 public class InputActivity extends AppCompatActivity {
 
+
+    // make constants for reference
+    public static String EXTRA_MESSAGE = "EXTRA_MESSAGE"
+    public static String EXTRA_COLOR = "EXTRA_COLOR"
+
     private RelativeLayout mLayout;
     private EditText mEditText;
     private int mCurrentBackgroundColor;
@@ -31,7 +36,9 @@ public class InputActivity extends AppCompatActivity {
         mLayout = (RelativeLayout) findViewById(R.id.activity_input_layout);
         mEditText = (EditText) findViewById(R.id.activity_input_message);
 
+        //Create intent here
         Intent intent = getIntent();
+
         mMessage = "Hello World";
         mCurrentBackgroundColor = Color.GRAY;
         updateUI();

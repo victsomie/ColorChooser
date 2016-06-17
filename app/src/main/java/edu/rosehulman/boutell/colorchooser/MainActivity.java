@@ -17,8 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     //make constants to carry the message and color
-    public
-
+    public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+    public static final String EXTRA_COLOR = "EXTRA_COLOR";
 
     private RelativeLayout mLayout;
     private TextView mTextView;
@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.action_change_color:
                 // TODO: Launch the InputActivity to get a result
+
+                //Create intent for the action when the element is pressed
                 Intent inputIntent = new Intent(this, InputActivity.class);
+                inputIntent.putExtra(EXTRA_MESSAGE, mMessage);
+                inputIntent.putExtra(EXTRA_COLOR,mBackgroundColor);
                 startActivity(inputIntent);
 
                 return true;
