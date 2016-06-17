@@ -21,8 +21,8 @@ public class InputActivity extends AppCompatActivity {
 
 
     // make constants for reference
-    public static String EXTRA_MESSAGE = "EXTRA_MESSAGE"
-    public static String EXTRA_COLOR = "EXTRA_COLOR"
+    public static String EXTRA_MESSAGE = "EXTRA_MESSAGE";
+    public static String EXTRA_COLOR = "EXTRA_COLOR";
 
     private RelativeLayout mLayout;
     private EditText mEditText;
