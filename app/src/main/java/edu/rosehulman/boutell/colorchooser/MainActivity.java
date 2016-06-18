@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     //This is the sendEmail method
     private void sendEmail(){
         //Create intent here to call a method to send email
-        Intent emailIntent  = new Intent(Intent.ACTION_SEND); //This calls an inbuilt method
+        Intent emailIntent  = new Intent(Intent.ACTION_SENDTO); //This calls an inbuilt method
         emailIntent.setData(Uri.parse("mailto:"));
         emailIntent.putExtra(Intent.EXTRA_EMAIL, "xyx@gmail.com"); //This defines where to send the message. Make sure the @ is included in the email
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From me");
