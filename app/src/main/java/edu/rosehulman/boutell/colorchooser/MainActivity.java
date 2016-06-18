@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-
     //make constants to carry the message and color
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     public static final String EXTRA_COLOR = "EXTRA_COLOR";
