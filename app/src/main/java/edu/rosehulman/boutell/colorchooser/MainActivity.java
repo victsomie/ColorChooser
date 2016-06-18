@@ -3,6 +3,7 @@ package edu.rosehulman.boutell.colorchooser;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -35,20 +36,39 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+
+        //This fab is the floating action in the main page
+        //Inside here I set it to help send mails using different clients
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // TODO: Send an email with the message field as the body
+                //Write/call a method called send email here (ensure you have that method)
+                sendEmail();
+
+
             }
         });
-
         // Capture
         mLayout = (RelativeLayout) findViewById(R.id.content_main_layout);
         mTextView = (TextView) findViewById(R.id.content_main_message);
 
         // Set color and text
         updateUI();
+    }
+
+    //This is the sendEmail method
+    private void sendEmail(){
+        //Create intent here to call a method to send email
+        Intent emailIntent  = new Intent(Intent.ACTION_SEND); //This calls an inbuilt method
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, "xyx@gmail.com"); //This defines where to send the message. Make sure the @ is included in the email
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From me");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, mMessage);
+        if(emailIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(emailIntent);
+        }
     }
 
     @Override
@@ -66,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: Launch a new Info Activity that is a ScrollingActivity.
                 Intent infoIntent = new Intent(this, InfoActivity.class);
                 startActivity(infoIntent);
-
                 return true;
 
             case R.id.action_change_color:
