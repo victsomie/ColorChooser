@@ -1,5 +1,6 @@
 package edu.rosehulman.boutell.colorchooser;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     //make constants to carry the message and color
     public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
     public static final String EXTRA_COLOR = "EXTRA_COLOR";
+    private static final int REQUEST_CODE_INPUT = 1; //This helps identetify the specific code being passed into this activity
 
     private RelativeLayout mLayout;
     private TextView mTextView;
@@ -71,10 +73,15 @@ public class MainActivity extends AppCompatActivity {
                 // TODO: Launch the InputActivity to get a result
 
                 //Create intent for the action when the element is pressed
+                //use putExtra()
+
                 Intent inputIntent = new Intent(this, InputActivity.class);
                 inputIntent.putExtra(EXTRA_MESSAGE, mMessage);
                 inputIntent.putExtra(EXTRA_COLOR,mBackgroundColor);
-                startActivity(inputIntent);
+                //startActivity(inputIntent);//Change this startActivityForResult
+                   //This requires a "request code" to distinguish between different activities it could call
+                startActivityForResult(inputIntent, REQUEST_CODE_INPUT); //Note this takes a
+                    // second parameter to help differentiate which activity finish
 
                 return true;
 
@@ -83,6 +90,30 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    //Creating the callback for the startActivityForResult here
+    //When you call startActivityForResult stub the result here
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Here you can check for the conditions of the request code i.e if it is the one we are creating
+        if (requestCode == REQUEST_CODE_INPUT && resultCode == Activity.RESULT_OK){
+            //Here we check if the request code is equal to the one we created and
+            // if the result code  is equal to the one in the input activity
+
+            //If it is so it assign the mMessage and mBackground Color to
+            // the new one selected in the input by using data.gertStringExtra and data.getIntExtra
+            //Then update the UI using updateUI()
+
+            mMessage = data.getStringExtra(MainActivity.EXTRA_MESSAGE);
+            mBackgroundColor = data.getIntExtra(MainActivity.EXTRA_COLOR,Color.GRAY);
+            updateUI();//This is the line that update the UI after it finishes
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void updateUI() {

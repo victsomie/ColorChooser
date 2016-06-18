@@ -39,8 +39,11 @@ public class InputActivity extends AppCompatActivity {
         //Create intent here
         Intent intent = getIntent();
 
-        mMessage = "Hello World";
-        mCurrentBackgroundColor = Color.GRAY;
+        //mMessage = "Hello World"; //Change this string to be changed by the intent
+        mMessage = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        //mCurrentBackgroundColor = Color.GRAY; //Change this to be changed by the intent action
+             //Note that it is reference by a Integer
+        mCurrentBackgroundColor = intent.getIntExtra(MainActivity.EXTRA_COLOR, Color.GRAY);
         updateUI();
 
         Button colorButton = (Button) findViewById(R.id.activity_input_button);
@@ -73,12 +76,34 @@ public class InputActivity extends AppCompatActivity {
                     }
                 })
                 .setPositiveButton(getString(android.R.string.ok), new ColorPickerClickListener() {
+                    //listens to the color that will be selected
                     @Override
                     public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                        mCurrentBackgroundColor = selectedColor;
-                        mMessage = mEditText.getText().toString();
+                        mCurrentBackgroundColor = selectedColor; //Changes the mCurrentBackgroundColor to the one selected here
+                        mMessage = mEditText.getText().toString(); //Assigns the mMessage to the new string that will be entered here
                         updateUI();
 						// TODO: Use an intent to send info back to activity that called this one for a result.
+
+
+                        //====Create an intent and tell the intent that putExtra was normal
+                           // but was expectedand ended with a good result=====
+                        //Create intent that will help send information back to activity that called for a result
+                        Intent intent = new Intent();
+                        intent.putExtra(MainActivity.EXTRA_MESSAGE, mMessage); //Passes the message we wrote
+                        intent.putExtra(MainActivity.EXTRA_COLOR, mCurrentBackgroundColor); //Passes the color selected
+
+                        //set the result here that wil let you pass the result code
+                        //It pass TWO PARAMETERS one to identify that its part of the activity call
+                        // and the other to identify intent holding the data
+                        setResult(Activity.RESULT_OK, intent);
+
+                        //With the extra set and the result set then the activity is ready to finish
+                        finish();
+
+                        //After finishing it goes to the MainActivity
+
+
+
 
                     }
                 })
